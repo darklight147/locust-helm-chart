@@ -13,37 +13,8 @@ class WebsiteUser(HttpUser):
 
     @task
     def get_catalogs(self):
-        self.client.get("/api/catalog", headers=default_headers)
+        self.client.get("/", headers=default_headers)
 
-    @task
-    def get_catalog_id(self):
-        choices = [1,2,3]
-
-        random_choice = choice(choices)
-
-        self.client.get("/api/catalog/{}".format(random_choice), headers=default_headers)
-
-    @task
-    def get_orders(self):
-        self.client.get("/api/order", headers=default_headers)
-
-    @task
-    def get_order_id(self):
-        choices = [1,2,3]
-
-        random_choice = choice(choices)
-
-        self.client.get("/api/order/{}".format(random_choice), headers=default_headers)
-
-    @task
-    def get_customers(self):
-        self.client.get("/api/customer", headers=default_headers)
-
-    @task
-    def get_customer_id(self):
-        choices = [1,2,3]
-
-        random_choice = choice(choices)
-
-        self.client.get("/api/customer/{}".format(random_choice), headers=default_headers)
-
+    @task(2)
+    def get_random_page(self):
+        self.client.get(choose_random_page(), headers=default_headers)
