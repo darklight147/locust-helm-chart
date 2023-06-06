@@ -43,9 +43,9 @@ master:
   serviceAccountAnnotations: {}
   # master.args_include_default -- Whether to include default command args
   args_include_default: true
-  command:
-    - sh
-    - /config/docker-entrypoint.sh
+  # command:
+  #   - sh
+  #   - /config/docker-entrypoint.sh
   strategy:
     type: RollingUpdate
   # master.pdb.enabled -- Whether to create a PodDisruptionBudget for the master pod
@@ -75,9 +75,9 @@ worker:
   serviceAccountAnnotations: {}
   # worker.args_include_default -- Whether to include default command args
   args_include_default: true
-  command:
-    - sh
-    - /config/docker-entrypoint.sh
+  # command:
+  #   - sh
+  #   - /config/docker-entrypoint.sh
   strategy:
     type: RollingUpdate
 
