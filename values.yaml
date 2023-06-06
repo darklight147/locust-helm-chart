@@ -8,11 +8,12 @@ loadtest:
   # loadtest.locust_lib_configmap -- name of a configmap containing your lib
   locust_lib_configmap: ""
   # loadtest.locust_host -- the host you will load test
-  locust_host: http://api-gateway.microservices-dev.svc.cluster.local
+  locust_host: https://argo.flavio.software
   # loadtest.pip_packages -- a list of extra python pip packages to install
   pip_packages: []
   # loadtest.environment -- environment variables used in the load test
-  environment: {}
+  environment:
+    {}
     # VAR: VALUE
 
 image:
@@ -31,7 +32,8 @@ master:
   # master.logLevel -- Log level. Can be INFO or DEBUG
   logLevel: INFO
   # master.resources -- resources for the locust master
-  resources: {}
+  resources:
+    {}
     # limits:
     #   cpu: 2000m
     #   memory: 1024Mi
@@ -55,14 +57,15 @@ worker:
   image: ""
   # worker.logLevel -- Log level. Can be INFO or DEBUG
   logLevel: INFO
-  replicas: 1
+  replicas: 2
   hpa:
-    enabled: false
+    enabled: true
     minReplicas: 1
     maxReplicas: 100
     targetCPUUtilizationPercentage: 40
   # worker.resources -- resources for the locust worker
-  resources: {}
+  resources:
+    {}
     # limits:
     #   cpu: 500m
     #   memory: 256Mi
@@ -82,10 +85,12 @@ nameOverride: ""
 fullnameOverride: ""
 imagePullSecrets: []
 
-podSecurityContext: {}
+podSecurityContext:
+  {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -96,14 +101,14 @@ securityContext: {}
 ingress:
   enabled: true
   annotations:
-    ingressClassName: nginx
+    ingressClassName: traefik
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: locust.51.105.100.252.nip.io
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+    - host: locust.flavio.software
+  tls:
+    - secretName: locust-tls
+      hosts:
+        - locust.flavio.software
   extraPaths: []
   # - /*
 
